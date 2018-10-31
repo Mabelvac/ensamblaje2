@@ -1,5 +1,5 @@
 # ensamblaje2
 
-A [workflowr][] project.
+Un proyecto demo.
 
-[workflowr]: https://github.com/jdblischak/workflowr
+[ensamblaje2]: https://github.com/rsimon64/ensamblaje2
