@@ -6,7 +6,7 @@ output: html_document
 runtime: shiny_prerendered
 ---
 
-```{r setup, include=FALSE, context="render"}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(shiny)
 ```
