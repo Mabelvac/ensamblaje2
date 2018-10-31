@@ -13,7 +13,7 @@ navbar:
       href: 30.html
       icon: fa-calculator
     - text: "Resultados"
-      href: 40.html
+      href: 50.html
       icon: fa-table
     - text: "Licencia"
       href: license.html
