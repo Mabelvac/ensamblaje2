@@ -9,6 +9,9 @@ navbar:
     - text: "Acerca de ..."
       href: about.html
       icon: fa-info
+    - text: "MyM"
+      href: 30.html
+      icon: fa-report
     - text: "Licencia"
       href: license.html
       icon: fa-copyright
