@@ -6,7 +6,7 @@ output: html_document
 runtime: shiny_prerendered
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, context="setup"}
 knitr::opts_chunk$set(echo = TRUE)
 library(shiny)
 ```
@@ -27,7 +27,7 @@ inputPanel(
   sliderInput("bw_adjust", label = "Bandwidth adjustment:",
               min = 0.2, max = 2, value = 1, step = 0.2)
 )
-plotOutput("distPlot")
+plotOutput("distPLot")
 ```
 
 ```{r eruptions_plot, echo=FALSE, context="server"}
