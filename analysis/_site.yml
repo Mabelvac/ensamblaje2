@@ -11,7 +11,10 @@ navbar:
       icon: fa-info
     - text: "MyM"
       href: 30.html
-      icon: fa-report
+      icon: fa-calculator
+    - text: "Resultados"
+      href: 40.html
+      icon: fa-table
     - text: "Licencia"
       href: license.html
       icon: fa-copyright
