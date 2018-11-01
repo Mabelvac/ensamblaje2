@@ -1,0 +1,76 @@
+---
+title: 'Revision de Calidad'
+author: "Reinhard Simon"
+date: "10/31/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo=FALSE, cache=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ShortRead)
+library(qrqc)
+library(GEOquery)
+
+fastqDir <- system.file("extdata", "E-MTAB-1147", package = "ShortRead")
+fastqPath <- list.files(fastqDir, pattern = ".fastq.gz$", full = TRUE)[1]
+
+file.copy(fastqPath, "../data/data.fastq.gz")
+
+```
+
+```{r decompress, echo=FALSE, cache=TRUE}
+
+fqp <- "output/example.fastq"
+src <- "data/data.fastq.gz"
+# if(!file.exists(src))
+#  gunzip(filename = src, destname = fqp, overwrite = TRUE)
+
+```
+
+## Revisión de calidad de datos primarios
+
+```{r readqc, cache=TRUE, echo=FALSE, message=FALSE}
+
+fq <- qrqc::readSeqFile(fqp, type = "fastq" )
+
+```
+
+Resúmen de estádisticas basicas.
+```{r message=FALSE}
+fq
+```
+
+
+
+```{r fig.cap="Gráfico de calidad por posición o ciclo", echo=FALSE, message=FALSE}
+qrqc::qualPlot(fq) + 
+  geom_vline(xintercept = 50)
+```
+
+El gráfico demuestra una fuerta baja de calidad a partir del ciclo 50. El inicio parece bién. Pero revisaremos las frecuencias de los cuatro bases luego.
+
+```{r basePlot, echo=FALSE, message=FALSE, fig.cap="Gráfico de frequencia de bases"}
+basePlot(fq) + geom_vline(xintercept = 20) +
+                geom_vline(xintercept = 50)
+```
+
+El gráfico de frecuencia de bases demuestra irregularidades fuertes de posición 0 a 20 y a partir de la posición 50 hasta al final ligera. Por lo tanto se decide de cortar los secuencias ahi mismo.
+
+## 
+
+```{r}
+
+fqsr <- ShortRead::readFastq(fqp)
+
+dd <- ShortRead::srduplicated(fqsr)
+
+fqsr_dd <- fqsr[!dd]
+fqsr_dd
+
+
+fp_dd <- "output/example.deduplicated.fastq"
+unlink(fp_dd)
+ShortRead::writeFastq(object = fqsr_dd, file = fp_dd, compress = FALSE)
+
+```
+
